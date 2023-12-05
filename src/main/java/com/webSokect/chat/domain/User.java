@@ -49,7 +49,7 @@ public class User {
     @Column(name = "activated")
     private boolean activated;
 
-    @ManyToMany
+    @ManyToMany // 다대다 -> 1:N <=> N:1 로 풀어 정리
     @JoinTable(
             name = "user_authority",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
