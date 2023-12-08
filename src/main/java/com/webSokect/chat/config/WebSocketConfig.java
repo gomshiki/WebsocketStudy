@@ -18,8 +18,10 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        //'/아무거나해요' 이부분은 나중에 서버 세팅을 끝난 후 실제로 테스트해볼때 정해지는 url 입니다.
-        //  setAllowedOrigins("*") 는 웹소켓 cors 정책으로 인해, 허용 도메인을 지정해줘야합니다
-        registry.addHandler(webSocketHandler, "/아무거나해요").setAllowedOrigins("*");
+
+        // endpoint 설정 : /api/v1/chat/{postId}
+        // 이를 통해서 ws://localhost:9090/ws/chat 으로 요청이 들어오면 websocket 통신을 진행한다.
+        // setAllowedOrigins("*")는 모든 ip에서 접속 가능하도록 해줌
+        registry.addHandler(webSocketHandler, "/ws/chat").setAllowedOrigins("*");
     }
 }
