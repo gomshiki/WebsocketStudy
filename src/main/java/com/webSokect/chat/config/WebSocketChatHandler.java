@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
@@ -32,6 +33,11 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         log.debug("{} 연결됨", session.getId());
 
         sessions.add(session);
+    }
+
+    protected void bundleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        String payload = message.getPayload();
+
     }
 
 
