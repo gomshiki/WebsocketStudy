@@ -37,7 +37,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
 
     protected void bundleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
-
+        //
     }
 
 
