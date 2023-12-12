@@ -1,6 +1,7 @@
 package com.webSokect.chat.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.webSokect.chat.dto.ChatMessageDto;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -35,9 +36,28 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         sessions.add(session);
     }
 
-    protected void bundleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    // 소켓 통신 시 메세지의 전송을 다루는 부분
+    @Override
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
-        // test null
+        log.info("payload: {}", payload);
+
+        // 페이로드 -> chatMessageDto로 변환
+        ChatMessageDto chatMessageDto = mapper.readValue(payload, ChatMessageDto.class);
+        log.info("session {}", chatMessageDto.toString());
+
+        Long chatRoomId = chatMessageDto.getChatRoomId();
+
+        // 메모리 상에 채팅방에 대한 세션 없으면 새로 생성
+        if (!chatRoomSessionMap.containsKey(chatRoomId)) {
+            chatRoomSessionMap.put(chatRoomId, new HashSet<>());
+        }
+
+        Set<WebSocketSession> chatRoomSession = chatRoomSessionMap.get(chatRoomId);
+
+        /***
+         * message
+         */
     }
 
 
