@@ -2,6 +2,8 @@ package com.webSokect.chat.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webSokect.chat.dto.ChatMessageDto;
+import com.webSokect.chat.dto.ChatMessageDto.MessageType;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -10,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -55,10 +58,54 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
 
         Set<WebSocketSession> chatRoomSession = chatRoomSessionMap.get(chatRoomId);
 
-        /***
-         * message
+        /**
+         * message 에 담긴 타입을 확인한다.
+         * 이 때 message 에서 getType 으로 가져온 내용이
+         * ChatDto 의 열거형인 MessageType 안에 있는 ENTER 과 통일한 값이라면
          */
+
+        if (chatMessageDto.getMessageType().equals(MessageType.ENTER)) {
+
+            // session 에 넘어온 session 을 담음
+            chatRoomSession.add(session);
+        }
+
+        if (chatRoomSession.size() >= 3) {
+            removeClosedSession(chatRoomSession);
+        }
+        sendMessageToChatRoom(chatMessageDto, chatRoomSession);
+
+
     }
+
+
+    // 소켓 종료 확인
+    private void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        log.info("{} 연결끊김", session.getId());
+        sessions.remove(session);
+    }
+
+    // ======== 채팅 관련 메소드 =======
+    private void removeClosedSession(Set<WebSocketSession> chatRoomSession) {
+        chatRoomSession.removeIf(sess -> !sessions.contains(sess));
+
+    }
+
+    private void sendMessageToChatRoom(ChatMessageDto chatMessageDto,
+            Set<WebSocketSession> chatRoomSession) {
+        chatRoomSession.parallelStream().forEach(sess -> sendMessge(sess, ChatMessageDto));
+    }
+
+    public <T> sendMessage(WebSocketSession session, T message) {
+        try {
+            session.sendMessage(new TextMessage(mapper.writeValueAsString(message)));
+
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+        }
+    }
+
+    //
 
 
 
