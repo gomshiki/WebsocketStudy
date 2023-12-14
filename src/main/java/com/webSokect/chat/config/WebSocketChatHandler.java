@@ -93,11 +93,12 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
 
     private void sendMessageToChatRoom(ChatMessageDto chatMessageDto,
             Set<WebSocketSession> chatRoomSession) {
-        chatRoomSession.parallelStream().forEach(sess -> sendMessge(sess, ChatMessageDto));
+        chatRoomSession.parallelStream().forEach(sess -> sendMessge(sess, chatMessageDto));
     }
 
     public <T> sendMessage(WebSocketSession session, T message) {
         try {
+
             session.sendMessage(new TextMessage(mapper.writeValueAsString(message)));
 
         } catch (IOException e) {
