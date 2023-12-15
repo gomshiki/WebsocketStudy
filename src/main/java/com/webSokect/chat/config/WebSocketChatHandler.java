@@ -80,7 +80,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
 
 
     // 소켓 종료 확인
-    private void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         log.info("{} 연결끊김", session.getId());
         sessions.remove(session);
     }
