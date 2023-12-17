@@ -27,7 +27,7 @@ public class SecurityConfig {
         httpSecurity
                 .authorizeHttpRequests((registry) ->
                         registry.requestMatchers(
-                                        new AntPathRequestMatcher("/api/hello")
+                                        "/api/hello", "/topic/**", "/app/**"
 
                                 )
                                 .permitAll()

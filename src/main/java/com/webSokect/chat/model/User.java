@@ -1,4 +1,4 @@
-package com.webSokect.chat.domain;
+package com.webSokect.chat.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
