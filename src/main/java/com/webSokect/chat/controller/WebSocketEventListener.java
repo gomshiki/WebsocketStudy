@@ -2,6 +2,7 @@ package com.webSokect.chat.controller;
 
 import com.webSokect.chat.model.ChatMessage;
 import com.webSokect.chat.model.ChatMessage.MessageType;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,12 @@ import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 @Component
+@RequiredArgsConstructor
 public class WebSocketEventListener {
 
     private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
 
-    @Autowired
+
     private SimpMessageSendingOperations messagingTemplate;
 
     @EventListener

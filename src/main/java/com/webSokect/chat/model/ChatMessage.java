@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Builder
 @Setter
 @NoArgsConstructor
 public class ChatMessage {
