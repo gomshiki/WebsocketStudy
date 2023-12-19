@@ -1,4 +1,4 @@
-package com.webSokect.chat.controller;
+package com.webSocket.chat.controller;
 
 
 import org.springframework.http.ResponseEntity;

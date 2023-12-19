@@ -1,4 +1,4 @@
-package com.webSokect.chat.model;
+package com.webSocket.chat.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -1,4 +1,4 @@
-package com.webSokect.chat.model;
+package com.webSocket.chat.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
