@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+/* ChatRoomRepository로 대체
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -39,7 +40,8 @@ public class ChatService {
 
     public ChatRoom createRoom(String name) {
         String randomId = UUID.randomUUID().toString();
-        log.debug("randomId {}", randomId);
+        log.info("randomId {}", randomId);
+        log.info("chatname {}", name);
         ChatRoom chatRoom = ChatRoom.builder()
                                 .roomId(randomId)
                                 .name(name)
@@ -58,3 +60,4 @@ public class ChatService {
     }
 
 }
+*/

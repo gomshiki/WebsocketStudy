@@ -12,8 +12,12 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 /**
- * 여러 클라이언트가 발송항 메시지를 받아 처리하는 handler
+ * ChatController 가 WebSocketChatHandler 역할을 대신함 사유 : Stomp 사용
  */
+/*
+
+
+// 여러 클라이언트가 발송항 메시지를 받아 처리하는 handler
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -35,4 +39,4 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         room.handleActions(session, chatMessage, chatService);
     }
 
-}
+}*/
